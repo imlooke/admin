@@ -38,7 +38,7 @@ class Permission extends Model
      */
     public function getTable()
     {
-        return config('admin.table_names.permissions', parent::getTable());
+        return config('admin.database.permissions_table', parent::getTable());
     }
 
     /**
@@ -48,9 +48,9 @@ class Permission extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.roles');
+        $pivotTable = config('admin.database.roles_table');
 
-        $relatedModel = config('admin.table_names.permissions');
+        $relatedModel = config('admin.database.permissions_table');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'permission_id');
     }
@@ -62,10 +62,10 @@ class Permission extends Model
      */
     public function admins(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.admins');
+        $pivotTable = config('admin.database.users_table');
 
-        $relatedModel = config('admin.table_names.permissions');
+        $relatedModel = config('admin.database.permissions_table');
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'admin_id', 'permission_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'permission_id');
     }
 }

@@ -29,7 +29,7 @@ class Role extends Model
      */
     public function getTable()
     {
-        return config('admin.table_names.roles', parent::getTable());
+        return config('admin.database.roles_table', parent::getTable());
     }
 
     /**
@@ -39,9 +39,9 @@ class Role extends Model
      */
     public function permissions(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.roles');
+        $pivotTable = config('admin.database.roles_table');
 
-        $relatedModel = config('admin.table_names.permissions');
+        $relatedModel = config('admin.database.permissions_table');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'permission_id');
     }
@@ -53,11 +53,11 @@ class Role extends Model
      */
     public function admins(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.admins');
+        $pivotTable = config('admin.database.users_table');
 
-        $relatedModel = config('admin.table_names.roles');
+        $relatedModel = config('admin.database.roles_table');
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'admin_id', 'role_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id');
     }
 
     /**
@@ -67,9 +67,9 @@ class Role extends Model
      */
     public function menus(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.roles');
+        $pivotTable = config('admin.database.roles_table');
 
-        $relatedModel = config('admin.table_names.menus');
+        $relatedModel = config('admin.database.menus_table');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'menu_id');
     }

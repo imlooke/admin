@@ -56,7 +56,7 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
      */
     public function getTable()
     {
-        return config('admin.table_names.admins', parent::getTable());
+        return config('admin.database.users_table', parent::getTable());
     }
 
     /**
@@ -84,11 +84,11 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.admins');
+        $pivotTable = config('admin.database.users_table');
 
-        $relatedModel = config('admin.table_names.roles');
+        $relatedModel = config('admin.database.roles_table');
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'admin_id', 'role_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id');
     }
 
     /**
@@ -98,10 +98,10 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
      */
     public function permissions(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.admins');
+        $pivotTable = config('admin.database.users_table');
 
-        $relatedModel = config('admin.table_names.permissions');
+        $relatedModel = config('admin.database.permissions_table');
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'admin_id', 'permission_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'permission_id');
     }
 }

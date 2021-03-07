@@ -40,7 +40,7 @@ class Menu extends Model
      */
     public function getTable()
     {
-        return config('admin.table_names.menus', parent::getTable());
+        return config('admin.database.menus_table', parent::getTable());
     }
 
     /**
@@ -50,9 +50,9 @@ class Menu extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = config('admin.table_names.roles');
+        $pivotTable = config('admin.database.roles_table');
 
-        $relatedModel = config('admin.table_names.menus');
+        $relatedModel = config('admin.database.menus_table');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'menu_id');
     }
