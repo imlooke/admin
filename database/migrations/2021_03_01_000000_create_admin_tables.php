@@ -35,6 +35,13 @@ class CreateAdminTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create($tableNames['roles'], function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->timestamps();
+        });
+
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
@@ -42,13 +49,6 @@ class CreateAdminTables extends Migration
             $table->text('route_path')->nullable();
             $table->string('route_name')->nullable();
             $table->string('route_method')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create($tableNames['roles'], function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
             $table->timestamps();
         });
 
@@ -69,25 +69,6 @@ class CreateAdminTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($tableNames['admin_permission'], function (Blueprint $table) use ($tableNames) {
-            $table->unsignedBigInteger('admin_id');
-            $table->unsignedBigInteger('permission_id');
-            $table->timestamps();
-            $table->index(['admin_id', 'permission_id']);
-
-            $table->foreign('admin_id')
-                ->references('id')
-                ->on($tableNames['admins'])
-                ->onDelete('cascade');
-
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on($tableNames['permissions'])
-                ->onDelete('cascade');
-
-            $table->primary(['admin_id', 'permission_id']);
-        });
-
         Schema::create($tableNames['admin_role'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('role_id');
@@ -105,6 +86,25 @@ class CreateAdminTables extends Migration
                 ->onDelete('cascade');
 
             $table->primary(['admin_id', 'role_id']);
+        });
+
+        Schema::create($tableNames['admin_permission'], function (Blueprint $table) use ($tableNames) {
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('permission_id');
+            $table->timestamps();
+            $table->index(['admin_id', 'permission_id']);
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on($tableNames['admins'])
+                ->onDelete('cascade');
+
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on($tableNames['permissions'])
+                ->onDelete('cascade');
+
+            $table->primary(['admin_id', 'permission_id']);
         });
 
         Schema::create($tableNames['role_permission'], function (Blueprint $table) use ($tableNames) {
@@ -162,10 +162,10 @@ class CreateAdminTables extends Migration
         Schema::dropIfExists($tableNames['role_menu']);
         Schema::dropIfExists($tableNames['menus']);
         Schema::dropIfExists($tableNames['role_permission']);
-        Schema::dropIfExists($tableNames['admin_role']);
         Schema::dropIfExists($tableNames['admin_permission']);
-        Schema::dropIfExists($tableNames['roles']);
+        Schema::dropIfExists($tableNames['admin_role']);
         Schema::dropIfExists($tableNames['permissions']);
+        Schema::dropIfExists($tableNames['roles']);
         Schema::dropIfExists($tableNames['admins']);
     }
 }

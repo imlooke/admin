@@ -4,10 +4,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | imlooke/admin table names
+    | Imlooke-admin table names
     |--------------------------------------------------------------------------
     |
-    | Here are table names for imlooke/admin builtin model & tables.
+    | Here are table names for Imlooke-admin builtin model & tables.
     |
     */
 
@@ -15,18 +15,16 @@ return [
 
         'admins' => 'admins',
 
-        'permissions' => 'permissions',
-
         'roles' => 'roles',
 
-        'admin_permission' => 'admin_permission',
-
-        'admin_role' => 'admin_role',
-
-        'role_permission' => 'role_permission',
+        'permissions' => 'permissions',
 
         'menus' => 'menus',
 
+        // Pivot table for table above.
+        'admin_role' => 'admin_role',
+        'admin_permission' => 'admin_permission',
+        'role_permission' => 'role_permission',
         'role_menu' => 'role_menu',
 
     ],
