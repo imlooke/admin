@@ -13,13 +13,7 @@ class CreateAdminTables extends Migration
      */
     public function up()
     {
-        $database = config('admin.database');
-
-        if (empty($database)) {
-            throw new \Exception('Error: config/admin.php not loaded. Run [php artisan config:clear] and try again.');
-        }
-
-        Schema::create($database['users_table'], function (Blueprint $table) {
+        Schema::create(config('admin.database.users_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('username')->unique();
             $table->string('avatar')->nullable();
@@ -35,14 +29,14 @@ class CreateAdminTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($database['roles_table'], function (Blueprint $table) {
+        Schema::create(config('admin.database.roles_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->timestamps();
         });
 
-        Schema::create($database['permissions_table'], function (Blueprint $table) {
+        Schema::create(config('admin.database.permissions_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
@@ -52,7 +46,7 @@ class CreateAdminTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($database['menus_table'], function (Blueprint $table) {
+        Schema::create(config('admin.database.menus_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('parent_id')->default(0);
             $table->string('path')->default('0');
@@ -69,7 +63,7 @@ class CreateAdminTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($database['user_role_table'], function (Blueprint $table) use ($database) {
+        Schema::create(config('admin.database.user_role_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('role_id');
             $table->timestamps();
@@ -77,18 +71,18 @@ class CreateAdminTables extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on($database['users_table'])
+                ->on(config('admin.database.users_table'))
                 ->onDelete('cascade');
 
             $table->foreign('role_id')
                 ->references('id')
-                ->on($database['roles_table'])
+                ->on(config('admin.database.roles_table'))
                 ->onDelete('cascade');
 
             $table->primary(['user_id', 'role_id']);
         });
 
-        Schema::create($database['user_permission_table'], function (Blueprint $table) use ($database) {
+        Schema::create(config('admin.database.user_permission_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('permission_id');
             $table->timestamps();
@@ -96,18 +90,18 @@ class CreateAdminTables extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on($database['users_table'])
+                ->on(config('admin.database.users_table'))
                 ->onDelete('cascade');
 
             $table->foreign('permission_id')
                 ->references('id')
-                ->on($database['permissions_table'])
+                ->on(config('admin.database.permissions_table'))
                 ->onDelete('cascade');
 
             $table->primary(['user_id', 'permission_id']);
         });
 
-        Schema::create($database['role_permission_table'], function (Blueprint $table) use ($database) {
+        Schema::create(config('admin.database.role_permission_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('permission_id');
             $table->timestamps();
@@ -115,18 +109,18 @@ class CreateAdminTables extends Migration
 
             $table->foreign('role_id')
                 ->references('id')
-                ->on($database['roles_table'])
+                ->on(config('admin.database.roles_table'))
                 ->onDelete('cascade');
 
             $table->foreign('permission_id')
                 ->references('id')
-                ->on($database['permissions_table'])
+                ->on(config('admin.database.permissions_table'))
                 ->onDelete('cascade');
 
             $table->primary(['role_id', 'permission_id']);
         });
 
-        Schema::create($database['role_menu_table'], function (Blueprint $table) use ($database) {
+        Schema::create(config('admin.database.role_menu_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('menu_id');
             $table->timestamps();
@@ -134,12 +128,12 @@ class CreateAdminTables extends Migration
 
             $table->foreign('role_id')
                 ->references('id')
-                ->on($database['roles_table'])
+                ->on(config('admin.database.roles_table'))
                 ->onDelete('cascade');
 
             $table->foreign('menu_id')
                 ->references('id')
-                ->on($database['menus_table'])
+                ->on(config('admin.database.menus_table'))
                 ->onDelete('cascade');
 
             $table->primary(['role_id', 'menu_id']);
@@ -153,19 +147,13 @@ class CreateAdminTables extends Migration
      */
     public function down()
     {
-        $database = config('admin.database.table_names');
-
-        if (empty($database)) {
-            throw new \Exception('Error: config/admin.php not found and defaults could not be merged. Please publish the package configuration before proceeding, or drop the tables manually.');
-        }
-
-        Schema::dropIfExists($database['role_menu_table']);
-        Schema::dropIfExists($database['menus_table']);
-        Schema::dropIfExists($database['role_permission_table']);
-        Schema::dropIfExists($database['user_permission_table']);
-        Schema::dropIfExists($database['user_role_table']);
-        Schema::dropIfExists($database['permissions_table']);
-        Schema::dropIfExists($database['roles_table']);
-        Schema::dropIfExists($database['users_table']);
+        Schema::dropIfExists(config('admin.database.role_menu_table'));
+        Schema::dropIfExists(config('admin.database.role_permission_table'));
+        Schema::dropIfExists(config('admin.database.user_permission_table'));
+        Schema::dropIfExists(config('admin.database.user_role_table'));
+        Schema::dropIfExists(config('admin.database.menus_table'));
+        Schema::dropIfExists(config('admin.database.permissions_table'));
+        Schema::dropIfExists(config('admin.database.roles_table'));
+        Schema::dropIfExists(config('admin.database.users_table'));
     }
 }

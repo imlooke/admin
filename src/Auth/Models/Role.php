@@ -39,25 +39,27 @@ class Role extends Model
      */
     public function permissions(): BelongsToMany
     {
-        $pivotTable = config('admin.database.roles_table');
-
-        $relatedModel = config('admin.database.permissions_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'permission_id');
+        return $this->belongsToMany(
+            config('admin.database.permissions_model'),
+            config('admin.database.role_permission_table'),
+            'role_id',
+            'permission_id'
+        );
     }
 
     /**
-     * A role belongs to many admins.
+     * A role belongs to many users.
      *
      * @return BelongsToMany
      */
-    public function admins(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        $pivotTable = config('admin.database.users_table');
-
-        $relatedModel = config('admin.database.roles_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id');
+        return $this->belongsToMany(
+            config('admin.database.users_model'),
+            config('admin.database.user_role_table'),
+            'role_id',
+            'user_id'
+        );
     }
 
     /**
@@ -67,10 +69,11 @@ class Role extends Model
      */
     public function menus(): BelongsToMany
     {
-        $pivotTable = config('admin.database.roles_table');
-
-        $relatedModel = config('admin.database.menus_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'menu_id');
+        return $this->belongsToMany(
+            config('admin.database.menus_model'),
+            config('admin.database.role_menu_table'),
+            'role_id',
+            'menu_id'
+        );
     }
 }

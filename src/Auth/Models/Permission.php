@@ -48,24 +48,26 @@ class Permission extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = config('admin.database.roles_table');
-
-        $relatedModel = config('admin.database.permissions_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'permission_id');
+        return $this->belongsToMany(
+            config('admin.database.roles_model'),
+            config('admin.database.role_permission_table'),
+            'permission_id',
+            'role_id'
+        );
     }
 
     /**
-     * A permission belongs to many admins.
+     * A permission belongs to many users.
      *
      * @return BelongsToMany
      */
-    public function admins(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        $pivotTable = config('admin.database.users_table');
-
-        $relatedModel = config('admin.database.permissions_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'permission_id');
+        return $this->belongsToMany(
+            config('admin.database.users_model'),
+            config('admin.database.user_permission_table'),
+            'permission_id',
+            'user_id'
+        );
     }
 }

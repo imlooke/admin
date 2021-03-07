@@ -42,7 +42,6 @@ class AdminServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../config' => config_path()], 'imlooke-admin-config');
-            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'imlooke-admin-migrations');
         }
     }
 }

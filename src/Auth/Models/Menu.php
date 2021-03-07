@@ -50,10 +50,11 @@ class Menu extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = config('admin.database.roles_table');
-
-        $relatedModel = config('admin.database.menus_table');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'menu_id');
+        return $this->belongsToMany(
+            config('admin.database.roles_model'),
+            config('admin.database.role_menu_table'),
+            'menu_id',
+            'role_id'
+        );
     }
 }
