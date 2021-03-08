@@ -27,7 +27,7 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
      * @var array
      */
     protected $fillable = [
-        'username', 'avatar', 'email', 'phone', 'password',
+        'username', 'name', 'avatar', 'email', 'phone', 'password',
     ];
 
     /**

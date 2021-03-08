@@ -16,6 +16,7 @@ class CreateAdminTables extends Migration
         Schema::create(config('admin.database.users_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('username')->unique();
+            $table->string('name')->nullable();
             $table->string('avatar')->nullable();
             $table->string('email', 64)->nullable();
             $table->string('phone', 32)->nullable();
@@ -66,7 +67,6 @@ class CreateAdminTables extends Migration
         Schema::create(config('admin.database.user_role_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('role_id');
-            $table->timestamps();
             $table->index(['user_id', 'role_id']);
 
             $table->foreign('user_id')
@@ -85,7 +85,6 @@ class CreateAdminTables extends Migration
         Schema::create(config('admin.database.user_permission_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('permission_id');
-            $table->timestamps();
             $table->index(['user_id', 'permission_id']);
 
             $table->foreign('user_id')
@@ -104,7 +103,6 @@ class CreateAdminTables extends Migration
         Schema::create(config('admin.database.role_permission_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('permission_id');
-            $table->timestamps();
             $table->index(['role_id', 'permission_id']);
 
             $table->foreign('role_id')
@@ -123,7 +121,6 @@ class CreateAdminTables extends Migration
         Schema::create(config('admin.database.role_menu_table'), function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('menu_id');
-            $table->timestamps();
             $table->index(['role_id', 'menu_id']);
 
             $table->foreign('role_id')

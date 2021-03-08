@@ -14,13 +14,23 @@ use Illuminate\Support\ServiceProvider;
 class AdminServiceProvider extends ServiceProvider
 {
     /**
+     * Commands
+     *
+     * @var array
+     */
+    protected $commands = [
+        Console\InstallCommand::class,
+    ];
+
+    /**
      * Register services.
      *
      * @return void
      */
     public function register()
     {
-
+        // register commands
+        $this->commands($this->commands);
     }
 
     /**
@@ -41,8 +51,8 @@ class AdminServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__.'/../config' => config_path()], 'imlooke-admin-config');
-            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'imlooke-admin-migrations');
+            $this->publishes([__DIR__ . '/../config' => config_path()], 'imlooke-admin-config');
+            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'imlooke-admin-migrations');
         }
     }
 }
