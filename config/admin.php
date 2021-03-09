@@ -4,10 +4,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Imlooke-admin install directory
+    |--------------------------------------------------------------------------
+    |
+    | Here are default directory for Imlooke-admin,
+    | and the default is `app/Admin`.
+    |
+    */
+
+    'directory' => app_path('Admin'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Imlooke-admin database settings
     |--------------------------------------------------------------------------
     |
-    | Here are database settings for Imlooke-admin builtin model & tables.
+    | Here are database settings for Imlooke-admin.
     |
     */
 

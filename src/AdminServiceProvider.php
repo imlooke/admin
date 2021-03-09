@@ -29,6 +29,8 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerAdmin();
+
         // register commands
         $this->commands($this->commands);
     }
@@ -41,6 +43,10 @@ class AdminServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         $this->registerPublishing();
+
+        if (file_exists($routes = admin_path('routes.php'))) {
+            $this->loadRoutesFrom($routes);
+        }
     }
 
     /**
@@ -54,5 +60,17 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([__DIR__ . '/../config' => config_path()], 'imlooke-admin-config');
             $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'imlooke-admin-migrations');
         }
+    }
+
+    /**
+     * Register the base admin service.
+     *
+     * @return void
+     */
+    protected function registerAdmin()
+    {
+        $this->app->singleton('imlooke.admin', function () {
+            return new Admin;
+        });
     }
 }
