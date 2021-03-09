@@ -20,6 +20,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $commands = [
         Console\InstallCommand::class,
+        Console\UninstallCommand::class,
     ];
 
     /**
@@ -57,8 +58,8 @@ class AdminServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__ . '/../config' => config_path()], 'imlooke-admin-config');
-            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'imlooke-admin-migrations');
+            $this->publishes([__DIR__ . '/../config' => config_path()]);
+            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')]);
         }
     }
 

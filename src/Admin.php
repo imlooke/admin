@@ -17,6 +17,6 @@ class Admin
      */
     public function routes()
     {
-        dd(123);
+
     }
 }
