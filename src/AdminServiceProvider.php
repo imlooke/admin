@@ -21,6 +21,7 @@ class AdminServiceProvider extends ServiceProvider
     protected $commands = [
         Console\InstallCommand::class,
         Console\UninstallCommand::class,
+        Console\AssetsLinkCommand::class,
     ];
 
     /**
@@ -43,6 +44,8 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+
         $this->registerPublishing();
 
         if (file_exists($routes = admin_path('routes.php'))) {

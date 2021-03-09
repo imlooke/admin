@@ -17,6 +17,12 @@ class Admin
      */
     public function routes()
     {
+        $attributes = [
+            'prefix' => config('admin.route.prefix'),
+        ];
 
+        app('router')->group($attributes, function ($router) {
+            $router->get('/login', '\Imlooke\Admin\Controllers\AuthController@getLogin');
+        });
     }
 }

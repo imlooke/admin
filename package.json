@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.12.13",
+        "antd": "^4.13.1",
+        "axios": "^0.21.1",
+        "laravel-mix": "^6.0.13",
+        "less": "^4.1.1",
+        "less-loader": "^8.0.0",
+        "postcss": "^8.1.14",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
+    }
+}
