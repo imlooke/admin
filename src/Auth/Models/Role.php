@@ -23,6 +23,27 @@ class Role extends Model
     ];
 
     /**
+     * Bootstrap the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete pivot records
+        static::deleting(function ($model) {
+            if (method_exists($model, 'isForceDeleting') && !$model->isForceDeleting()) {
+                return;
+            }
+
+            $model->permissions()->detach();
+            $model->users()->detach();
+            $model->menus()->detach();
+        });
+    }
+
+    /**
      * Get the table associated with the model.
      *
      * @return string

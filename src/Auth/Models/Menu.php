@@ -34,6 +34,25 @@ class Menu extends Model
     ];
 
     /**
+     * Bootstrap the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete pivot records
+        static::deleting(function ($model) {
+            if (method_exists($model, 'isForceDeleting') && !$model->isForceDeleting()) {
+                return;
+            }
+
+            $model->roles()->detach();
+        });
+    }
+
+    /**
      * Get the table associated with the model.
      *
      * @return string

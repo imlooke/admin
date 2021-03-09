@@ -50,6 +50,26 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
     ];
 
     /**
+     * Bootstrap the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete pivot records
+        static::deleting(function ($model) {
+            if (method_exists($model, 'isForceDeleting') && !$model->isForceDeleting()) {
+                return;
+            }
+
+            $model->roles()->detach();
+            $model->permissions()->detach();
+        });
+    }
+
+    /**
      * Get the table associated with the model.
      *
      * @return string
