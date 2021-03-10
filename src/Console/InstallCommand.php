@@ -18,7 +18,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:install';
+    protected $signature = 'admin:install {--directory= : Admin directory}';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class InstallCommand extends Command
     protected $description = 'Install the admin package';
 
     /**
-     * The Admin directory
+     * The Admin directory.
      *
      * @var string
      */
@@ -41,6 +41,15 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        // must call publish first.
+        $this->call('vendor:publish', [
+            '--provider' => 'Imlooke\Admin\AdminServiceProvider'
+        ]);
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Laravel\Sanctum\SanctumServiceProvider'
+        ]);
+
         // $this->installDatabase();
 
         $this->createAdminDirectory();
@@ -60,20 +69,24 @@ class InstallCommand extends Command
     }
 
     /**
-     * Create admin directory
+     * Create admin directory.
      *
      * @return void
      */
     protected function createAdminDirectory()
     {
-        $this->directory = config('admin.directory');
+        $this->directory = config('admin.directory', app_path('Admin'));
+
+        if ($this->option('directory')) {
+            $this->directory = app_path($this->option('directory'));
+        }
 
         if (is_dir($this->directory)) {
             $this->error("{$this->directory} directory already exists!");
             return;
         }
 
-        $this->laravel['files']->makeDirectory("{$this->directory}/", 0755, true, true);
+        $this->makeDir('/');
     }
 
     /**
@@ -83,7 +96,7 @@ class InstallCommand extends Command
      */
     protected function createRoutesFile()
     {
-        $file = $this->directory . '/routes.php';
+        $file = $this->directory . DIRECTORY_SEPARATOR . 'routes.php';
 
         $this->laravel['files']->put(
             $file,
@@ -96,10 +109,22 @@ class InstallCommand extends Command
     /**
      * Get the stub file for the generator.
      *
+     * @param  string $name
      * @return string
      */
     protected function getStub($name)
     {
         return __DIR__ . "/stubs/$name.stub";
+    }
+
+    /**
+     * Create directory.
+     *
+     * @param  string $path
+     * @return void
+     */
+    protected function makeDir($path)
+    {
+        $this->laravel['files']->makeDirectory("{$this->directory}/$path", 0755, true, true);
     }
 }

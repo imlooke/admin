@@ -9,7 +9,8 @@
     ],
     "require": {
         "php": "^7.3",
-        "laravel/framework": "^8.0"
+        "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.9.1"
     },
     "autoload": {
         "psr-4": {

@@ -11,6 +11,13 @@ namespace Imlooke\Admin;
 class Admin
 {
     /**
+     * The controller namespace for the application.
+     *
+     * @var string
+     */
+    protected $namespace = 'Imlooke\\Admin\\Controllers';
+
+    /**
      * Register admin routes.
      *
      * @return void
@@ -19,10 +26,12 @@ class Admin
     {
         $attributes = [
             'prefix' => config('admin.route.prefix'),
+            'namespace' => $this->namespace,
         ];
 
         app('router')->group($attributes, function ($router) {
-            $router->get('/login', '\Imlooke\Admin\Controllers\AuthController@getLogin');
+            $router->get('/{any?}', 'IndexController@index')->where('any', '.*');
+            // $router->get('/login', '\Imlooke\Admin\Controllers\AuthController@getLogin');
         });
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Imlooke\Admin;
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -42,7 +41,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
 
@@ -61,8 +60,12 @@ class AdminServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__ . '/../config' => config_path()]);
-            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')]);
+            $this->publishes([
+                __DIR__ . '/../config' => config_path()
+            ], 'imlooke-admin-config');
+            $this->publishes([
+                __DIR__ . '/../database/migrations' => database_path('migrations')
+            ], 'imlooke-admin-migrations');
         }
     }
 

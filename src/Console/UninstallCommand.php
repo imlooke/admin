@@ -3,7 +3,6 @@
 namespace Imlooke\Admin\Console;
 
 use Illuminate\Console\Command;
-use Imlooke\Admin\DatabaseInstaller;
 
 /**
  * UninstallCommand
@@ -25,7 +24,7 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Uninstall the admin package';
+    protected $description = 'Uninstall imlooke admin package';
 
     /**
      * Execute the console command.
@@ -38,11 +37,11 @@ class UninstallCommand extends Command
             return;
         }
 
-        $this->line('Uninstalling Imlooke-admin...');
+        $this->line('Uninstalling...');
 
         $this->removeFilesAndDirectories();
 
-        $this->info('Uninstall laravel-admin succeeded!');
+        $this->info('Uninstall succeeded!');
     }
 
     /**

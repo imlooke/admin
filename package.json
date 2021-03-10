@@ -13,6 +13,8 @@
         "@babel/preset-react": "^7.12.13",
         "antd": "^4.13.1",
         "axios": "^0.21.1",
+        "browser-sync": "^2.26.14",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "laravel-mix": "^6.0.13",
         "less": "^4.1.1",
         "less-loader": "^8.0.0",
