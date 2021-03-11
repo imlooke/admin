@@ -6,8 +6,8 @@ mix.browserSync({
 });
 
 mix
-  .less("resources/less/app.less", "resources/assets", {
+  .less("resources/less/app.less", "public/css", {
     lessOptions: { javascriptEnabled: true },
   })
-  .js("resources/js/app.js", "resources/assets")
+  .js("resources/js/app.js", "public/js")
   .react();
