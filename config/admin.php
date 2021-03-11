@@ -55,7 +55,7 @@ return [
             ],
         ],
 
-        'expiration' => 60,
+        'expiration' => null,
     ],
 
     /*

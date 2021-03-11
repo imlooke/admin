@@ -42,7 +42,9 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $routeMiddleware = [];
+    protected $routeMiddleware = [
+        'admin.auth' => \Imlooke\Admin\Http\Middleware\Authenticate::class,
+    ];
 
     /**
      * Register services.
@@ -91,7 +93,8 @@ class AdminServiceProvider extends ServiceProvider
         config(Arr::dot(config('admin.auth', []), 'auth.'));
 
         config([
-            'sanctum.guard' => config('sanctum.guard') ?: config('admin.auth.guard')
+            'sanctum.guard' => config('sanctum.guard') ?: config('admin.auth.guard'),
+            'sanctum.expiration' => config('sanctum.expiration') ?: config('admin.auth.expiration'),
         ]);
     }
 

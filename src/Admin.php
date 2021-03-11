@@ -78,11 +78,11 @@ class Admin
         Route::group($attributes, function ($router) {
             $router->post('/login', 'AuthController@login');
 
-            $router->middleware(['auth:sanctum'])->group(function ($router) {
+            $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
                 $router->post('/logout', 'AuthController@logout');
             });
 
-            $router->middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+            $router->middleware(['admin.auth:sanctum'])->get('/user', function (Request $request) {
                 return $request->user();
             });
         });
