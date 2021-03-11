@@ -2,6 +2,10 @@
 
 namespace Imlooke\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /**
  * Admin
  *
@@ -15,7 +19,19 @@ class Admin
      *
      * @var string
      */
-    protected $namespace = 'Imlooke\\Admin\\Controllers';
+    protected $namespace = 'Imlooke\\Admin\\Http\\Controllers';
+
+    /**
+     * Attempt to get the guard.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard()
+    {
+        $guard = config('admin.auth.guard') ?: 'admin';
+
+        return Auth::guard($guard);
+    }
 
     /**
      * Register admin routes.
@@ -24,14 +40,51 @@ class Admin
      */
     public function routes()
     {
+        $this->registerSpaRoutes();
+        $this->registerApiRoutes();
+    }
+
+    /**
+     * Register admin spa routes.
+     *
+     * @return void
+     */
+    public function registerSpaRoutes()
+    {
         $attributes = [
             'prefix' => config('admin.route.prefix'),
             'namespace' => $this->namespace,
+            'middleware' => 'web'
         ];
 
-        app('router')->group($attributes, function ($router) {
+        Route::group($attributes, function ($router) {
             $router->get('/{any?}', 'IndexController@index')->where('any', '.*');
-            // $router->get('/login', '\Imlooke\Admin\Controllers\AuthController@getLogin');
+        });
+    }
+
+    /**
+     * Register admin api routes.
+     *
+     * @return void
+     */
+    public function registerApiRoutes()
+    {
+        $attributes = [
+            'prefix' => 'api/admin',
+            'namespace' => $this->namespace,
+            'middleware' => 'admin.api'
+        ];
+
+        Route::group($attributes, function ($router) {
+            $router->post('/login', 'AuthController@login');
+
+            $router->middleware(['auth:sanctum'])->group(function ($router) {
+                $router->post('/logout', 'AuthController@logout');
+            });
+
+            $router->middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+                return $request->user();
+            });
         });
     }
 }

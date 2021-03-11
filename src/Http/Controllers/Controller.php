@@ -1,6 +1,6 @@
 <?php
 
-namespace Imlooke\Admin\Controllers;
+namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

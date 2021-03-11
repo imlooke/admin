@@ -50,7 +50,7 @@ class InstallCommand extends Command
             '--provider' => 'Laravel\Sanctum\SanctumServiceProvider'
         ]);
 
-        // $this->installDatabase();
+        $this->installDatabase();
 
         $this->createAdminDirectory();
         $this->createRoutesFile();

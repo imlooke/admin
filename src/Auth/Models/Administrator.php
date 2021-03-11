@@ -2,13 +2,12 @@
 
 namespace Imlooke\Admin\Auth\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Administrator
@@ -16,10 +15,9 @@ use Illuminate\Support\Facades\URL;
  * @package imlooke/admin
  * @author lwx12525 <lwx12525@qq.com>
  */
-class Administrator extends Model implements AuthenticatableContract, AuthorizableContract
+class Administrator extends Authenticatable
 {
-    use Authenticatable;
-    use Authorizable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.

@@ -31,6 +31,35 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Imlooke-admin auth settings
+    |--------------------------------------------------------------------------
+    |
+    | Here are default auth settings for Imlooke-admin,
+    |
+    */
+
+    'auth' => [
+        'guard' => 'admin',
+
+        'guards' => [
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admins',
+            ],
+        ],
+
+        'providers' => [
+            'admins' => [
+                'driver' => 'eloquent',
+                'model' => Imlooke\Admin\Auth\Models\Administrator::class,
+            ],
+        ],
+
+        'expiration' => 60,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Imlooke-admin database settings
     |--------------------------------------------------------------------------
     |
