@@ -3,27 +3,35 @@
 namespace Imlooke\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 /**
- * UserRequest
+ * AdminUsersRequest
  *
  * @package imlooke/admin
  * @author lwx12525 <lwx12525@qq.com>
  */
-class UserRequest extends FormRequest
+class AdminUsersRequest extends FormRequest
 {
     public function rules()
     {
         $table = config('admin.database.users_table');
 
-        return [
-            'username' => "required|string|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:$table,username," . Auth::id(),
+        $roles = [
+            'username' => "required|string|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:$table,username",
             'name' => 'nullable|string',
             'avatar' => 'nullable|string',
             'email' => 'nullable|string|max:64|email',
             'phone' => 'nullable|string|max:32|phone_number',
+            'password' => 'required|string|min:6|regex:/^[A-Za-z0-9\-\_]+$/',
+            'roles' => 'nullable|array'
         ];
+
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            $roles['username'] = "required|string|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:$table,username," . $this->user;
+            $roles['password'] = 'nullable|string|min:6|regex:/^[A-Za-z0-9\-\_]+$/';
+        }
+
+        return $roles;
     }
 
     public function messages()

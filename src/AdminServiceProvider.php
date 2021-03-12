@@ -3,6 +3,7 @@
 namespace Imlooke\Admin;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -116,14 +117,11 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
-
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'admin');
-
         $this->registerPublishing();
-
         $this->registerRoutes();
-
         $this->registerValidators();
+        $this->registerMacros();
     }
 
     /**
@@ -166,5 +164,18 @@ class AdminServiceProvider extends ServiceProvider
         foreach ($this->validators as $rule => $validator) {
             Validator::extend($rule, "{$validator}@validate");
         }
+    }
+
+    /**
+     * Register macros.
+     *
+     * @return void
+     */
+    protected function registerMacros()
+    {
+        Response::macro('success', function ($message = '', $status = 200) {
+            if (!$message) $message = 'Success!';
+            return Response::json(compact('message'), $status);
+        });
     }
 }

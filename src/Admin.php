@@ -85,8 +85,10 @@ class Admin
                 $router->post('/reset', 'UserController@reset');
             });
 
-            $router->middleware(['admin.auth:sanctum'])->get('/user', function (Request $request) {
-                return $request->user();
+            $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
+                $router->apiResources([
+                    'auth/users' => 'UsersController',
+                ]);
             });
         });
     }
