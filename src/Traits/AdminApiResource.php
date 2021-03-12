@@ -28,7 +28,7 @@ trait AdminApiResource
         $sortOrder = request()->input('sort_order', 'desc');
 
         if (!is_null($key) && !is_null($search)) {
-            $model->where($key, 'LIKE', "%$search%");
+            $model = $model->where($key, 'LIKE', "%$search%");
         }
 
         $model->orderBy($orderBy, $sortOrder);

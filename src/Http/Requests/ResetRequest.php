@@ -24,14 +24,14 @@ class ResetRequest extends FormRequest
                     }
                 },
             ],
-            'new_password' => 'required|string|min:6|confirmed|regex:/^[A-Za-z0-9\-\_]+$/',
+            'new_password' => 'required|string|min:6|confirmed|alpha_dash_regex',
         ];
     }
 
     public function messages()
     {
         return [
-            'new_password.regex' => '密码只支持英文、数字、横杠和下划线。',
+            'new_password.alpha_dash_regex' => '密码只支持英文、数字、横杠和下划线。',
         ];
     }
 }

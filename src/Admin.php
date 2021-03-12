@@ -88,6 +88,7 @@ class Admin
             $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
                 $router->apiResources([
                     'auth/users' => 'UsersController',
+                    'auth/roles' => 'RolesController',
                 ]);
             });
         });

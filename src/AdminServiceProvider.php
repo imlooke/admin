@@ -54,6 +54,7 @@ class AdminServiceProvider extends ServiceProvider
      * @var array
      */
     protected $validators = [
+        'alpha_dash_regex' => Validators\AlphaDashRegexValidator::class,
         'phone_number' => Validators\PhoneNumberValidator::class,
     ];
 

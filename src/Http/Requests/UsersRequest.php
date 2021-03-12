@@ -5,30 +5,30 @@ namespace Imlooke\Admin\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * AdminUsersRequest
+ * UsersRequest
  *
  * @package imlooke/admin
  * @author lwx12525 <lwx12525@qq.com>
  */
-class AdminUsersRequest extends FormRequest
+class UsersRequest extends FormRequest
 {
     public function rules()
     {
         $table = config('admin.database.users_table');
 
         $roles = [
-            'username' => "required|string|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:$table,username",
+            'username' => "required|string|between:3,25|alpha_dash_regex|unique:$table,username",
             'name' => 'nullable|string',
             'avatar' => 'nullable|string',
             'email' => 'nullable|string|max:64|email',
             'phone' => 'nullable|string|max:32|phone_number',
-            'password' => 'required|string|min:6|regex:/^[A-Za-z0-9\-\_]+$/',
+            'password' => 'required|string|min:6|alpha_dash_regex',
             'roles' => 'nullable|array'
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            $roles['username'] = "required|string|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:$table,username," . $this->user;
-            $roles['password'] = 'nullable|string|min:6|regex:/^[A-Za-z0-9\-\_]+$/';
+            $roles['username'] = "required|string|between:3,25|alpha_dash_regex|unique:$table,username," . $this->user;
+            $roles['password'] = 'nullable|string|min:6|alpha_dash_regex';
         }
 
         return $roles;
@@ -38,7 +38,7 @@ class AdminUsersRequest extends FormRequest
     {
         return [
             'username.unique' => '用户名已被占用，请重新填写。',
-            'username.regex' => '用户名只支持英文、数字、横杠和下划线。',
+            'username.alpha_dash_regex' => '用户名只支持英文、数字、横杠和下划线。',
             'username.between' => '用户名必须介于 3 - 25 个字符之间。',
             'username.required' => '用户名不能为空。',
             'phone.phone_number' => '手机号格式不正确，请重新填写。',

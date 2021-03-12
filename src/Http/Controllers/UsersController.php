@@ -4,7 +4,7 @@ namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Imlooke\Admin\Auth\Models\Administrator;
-use Imlooke\Admin\Http\Requests\AdminUsersRequest;
+use Imlooke\Admin\Http\Requests\UsersRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 
 /**
@@ -24,7 +24,7 @@ class UsersController extends Controller
         return response()->json($response);
     }
 
-    public function store(AdminUsersRequest $request)
+    public function store(UsersRequest $request)
     {
         $data = $request->only([
             'username', 'name', 'avatar', 'email', 'phone',
@@ -44,12 +44,12 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        return response()->json(
-            Administrator::with('roles')->findOrFail($id)
-        );
+        $response = Administrator::with('roles')->findOrFail($id);
+
+        return response()->json($response);
     }
 
-    public function update(AdminUsersRequest $request, $id)
+    public function update(UsersRequest $request, $id)
     {
         $data = $request->only([
             'username', 'name', 'avatar', 'email', 'phone',
