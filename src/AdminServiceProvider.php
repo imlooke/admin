@@ -3,6 +3,7 @@
 namespace Imlooke\Admin;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -43,7 +44,16 @@ class AdminServiceProvider extends ServiceProvider
      * @var array
      */
     protected $routeMiddleware = [
-        'admin.auth' => \Imlooke\Admin\Http\Middleware\Authenticate::class,
+        'admin.auth' => Http\Middleware\Authenticate::class,
+    ];
+
+    /**
+     * The admin's custom validators.
+     *
+     * @var array
+     */
+    protected $validators = [
+        'phone_number' => Validators\PhoneNumberValidator::class,
     ];
 
     /**
@@ -107,11 +117,13 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
 
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'admin');
+
         $this->registerPublishing();
 
-        if (file_exists($routes = admin_path('routes.php'))) {
-            $this->loadRoutesFrom($routes);
-        }
+        $this->registerRoutes();
+
+        $this->registerValidators();
     }
 
     /**
@@ -128,6 +140,31 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../database/migrations' => database_path('migrations')
             ], 'imlooke-admin-migrations');
+            // TODO: lang public
+        }
+    }
+
+    /**
+     * Register routes.
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        if (file_exists($routes = admin_path('routes.php'))) {
+            $this->loadRoutesFrom($routes);
+        }
+    }
+
+    /**
+     * Register validators.
+     *
+     * @return void
+     */
+    protected function registerValidators()
+    {
+        foreach ($this->validators as $rule => $validator) {
+            Validator::extend($rule, "{$validator}@validate");
         }
     }
 }

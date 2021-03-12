@@ -80,6 +80,9 @@ class Admin
 
             $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
                 $router->post('/logout', 'AuthController@logout');
+                $router->get('/user', 'UserController@user');
+                $router->put('/user', 'UserController@update');
+                $router->post('/reset', 'UserController@reset');
             });
 
             $router->middleware(['admin.auth:sanctum'])->get('/user', function (Request $request) {
