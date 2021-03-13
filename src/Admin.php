@@ -89,6 +89,7 @@ class Admin
                 $router->apiResources([
                     'auth/users' => 'UsersController',
                     'auth/roles' => 'RolesController',
+                    'auth/permissions' => 'PermissionsController',
                 ]);
             });
         });

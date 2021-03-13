@@ -18,21 +18,21 @@ class RolesRequest extends FormRequest
 
         $rules = [
             'name' => "required|string|unique:$table,name",
-            'slug' => "required|string|alpha_dash_regex|unique:$table,slug",
+            'slug' => "required|string|alpha_dot_regex|unique:$table,slug",
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
             $rules['name'] = "required|string|unique:$table,name," . $this->role;
-            $rules['slug'] = "required|string|alpha_dash_regex|unique:$table,slug," . $this->role;
+            $rules['slug'] = "required|string|alpha_dot_regex|unique:$table,slug," . $this->role;
         }
 
         return $rules;
     }
 
-    public function messages()
+    public function attributes()
     {
         return [
-            'slug.alpha_dash_regex' => '标识只支持英文、数字、横杠和下划线。',
+            'slug' => trans('admin::validation.attributes.slug'),
         ];
     }
 }

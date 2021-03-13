@@ -27,7 +27,6 @@ class Menu extends Model
         'order',
         'name',
         'route_path',
-        'route_name',
         'icon',
         'description',
         'app_group',

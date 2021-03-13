@@ -4,8 +4,8 @@ namespace Imlooke\Admin;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Imlooke\Admin\Validation\AdminValidator;
 
 /**
  * AdminServiceProvider
@@ -46,16 +46,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $routeMiddleware = [
         'admin.auth' => Http\Middleware\Authenticate::class,
-    ];
-
-    /**
-     * The admin's custom validators.
-     *
-     * @var array
-     */
-    protected $validators = [
-        'alpha_dash_regex' => Validators\AlphaDashRegexValidator::class,
-        'phone_number' => Validators\PhoneNumberValidator::class,
     ];
 
     /**
@@ -139,7 +129,9 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../database/migrations' => database_path('migrations')
             ], 'imlooke-admin-migrations');
-            // TODO: lang public
+            $this->publishes([
+                __DIR__ . '/../resources/lang' => resource_path('lang/vendor/admin')
+            ], 'imlooke-admin-lang');
         }
     }
 
@@ -162,9 +154,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected function registerValidators()
     {
-        foreach ($this->validators as $rule => $validator) {
-            Validator::extend($rule, "{$validator}@validate");
-        }
+        (new AdminValidator)->register();
     }
 
     /**

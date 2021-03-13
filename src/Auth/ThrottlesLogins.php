@@ -55,7 +55,7 @@ trait ThrottlesLogins
         );
 
         throw ValidationException::withMessages([
-            $this->username() => [Lang::get('auth.throttle', [
+            $this->username() => [Lang::get('admin::lang.auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ])],

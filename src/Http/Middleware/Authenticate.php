@@ -85,6 +85,6 @@ class Authenticate implements AuthenticatesRequests
      */
     protected function unauthenticated($request, array $guards)
     {
-        throw new AuthenticationException('Unauthenticated.', $guards);
+        throw new AuthenticationException(trans('admin::lang.auth.unauthenticated'), $guards);
     }
 }

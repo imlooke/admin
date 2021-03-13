@@ -20,7 +20,7 @@ class ResetRequest extends FormRequest
                 'required', 'string',
                 function ($attribute, $value, $fail) {
                     if (!Hash::check($value, $this->user()->password)) {
-                        $fail('当前密码错误，请重新输入。');
+                        $fail(trans('admin::lang.auth.password'));
                     }
                 },
             ],
@@ -28,10 +28,11 @@ class ResetRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function attributes()
     {
         return [
-            'new_password.alpha_dash_regex' => '密码只支持英文、数字、横杠和下划线。',
+            'new_password'              => trans('admin::validation.attributes.new_password'),
+            'new_password_confirmation' => trans('admin::validation.attributes.new_password_confirmation'),
         ];
     }
 }

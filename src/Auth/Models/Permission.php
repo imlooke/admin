@@ -19,7 +19,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'route_path', 'route_name', 'route_method',
+        'name', 'slug', 'route_path', 'route_method',
     ];
 
     /**
@@ -89,5 +89,29 @@ class Permission extends Model
             'permission_id',
             'user_id'
         );
+    }
+
+    /**
+     * Set route_method attribute.
+     *
+     * @param  array $value
+     * @return string
+     */
+    public function setRouteMethodAttribute($value)
+    {
+        if (is_array($value)) {
+            $this->attributes['route_method'] = implode(',', $value);
+        }
+    }
+
+    /**
+     * Get route_method attribute.
+     *
+     * @param  string $value
+     * @return array
+     */
+    public function getRouteMethodAttribute(string $value)
+    {
+        return explode(',', $value);
     }
 }

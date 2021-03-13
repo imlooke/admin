@@ -3,48 +3,51 @@
 namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Imlooke\Admin\Auth\Models\Role;
-use Imlooke\Admin\Http\Requests\RolesRequest;
+use Imlooke\Admin\Auth\Models\Permission;
+use Imlooke\Admin\Http\Requests\PermissionsRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 
 /**
- * RolesController
+ * PermissionsController
  *
  * @package imlooke/admin
  * @author lwx12525 <lwx12525@qq.com>
  */
-class RolesController extends Controller
+class PermissionsController extends Controller
 {
     use AdminApiResource;
 
     public function index()
     {
-        $response = $this->fillter(Role::class);
+        $response = $this->fillter(Permission::class);
 
         return response()->json($response);
     }
 
-    public function store(RolesRequest $request)
+    public function store(PermissionsRequest $request)
     {
-        $data = $request->only(['name', 'slug']);
+        // TODO:
+        $data = $request->only([
+            'name', 'slug', 'route_path', 'route_method',
+        ]);
 
-        Role::create($data);
+        Permission::create($data);
 
         return response()->success(trans('admin::lang.success.store'));
     }
 
     public function show($id)
     {
-        $response = Role::findOrFail($id);
+        $response = Permission::findOrFail($id);
 
         return response()->json($response);
     }
 
-    public function update(RolesRequest $request, $id)
+    public function update(PermissionsRequest $request, $id)
     {
         $data = $request->only(['name', 'slug']);
 
-        $role = Role::findOrFail($id);
+        $role = Permission::findOrFail($id);
         $role->update($data);
 
         return response()->success(trans('admin::lang.success.update'));
@@ -52,7 +55,7 @@ class RolesController extends Controller
 
     public function destroy($id)
     {
-        $this->multiDestroy(Role::class);
+        $this->multiDestroy(Permission::class);
 
         return response()->success(trans('admin::lang.success.destroy'));
     }

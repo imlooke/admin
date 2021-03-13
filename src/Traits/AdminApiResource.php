@@ -13,8 +13,8 @@ trait AdminApiResource
     /**
      * Add fillter method to controller.
      *
-     * @param  String|Illuminate\Database\Eloquent\Builder $model
-     * @return Collection
+     * @param  string|Illuminate\Database\Eloquent\Builder $model
+     * @return collection
      */
     protected function fillter($model)
     {
@@ -44,11 +44,18 @@ trait AdminApiResource
     /**
      * add mutil destroy method to controller.
      *
-     * @param  String $model
-     * @return Integer
+     * @param  string $model
+     * @return integer
      */
-    protected function multiDestroy($model, $id = 0)
+    protected function multiDestroy($model)
     {
+        $id = 0;
+        $parameters = request()->route()->parameters();
+
+        if (is_array($parameters) && count($parameters)) {
+            $id = end($parameters);
+        }
+
         if (empty($id)) {
             $ids = request()->input('ids', []);
         } else {

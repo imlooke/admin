@@ -39,7 +39,7 @@ class UsersController extends Controller
             $request->input('roles')
         );
 
-        return response()->success('创建成功');
+        return response()->success(trans('admin::lang.success.store'));
     }
 
     public function show($id)
@@ -65,13 +65,13 @@ class UsersController extends Controller
             $request->input('roles')
         );
 
-        return response()->success('更新成功');
+        return response()->success(trans('admin::lang.success.update'));
     }
 
     public function destroy($id)
     {
-        $this->multiDestroy(Administrator::class, $id);
+        $this->multiDestroy(Administrator::class);
 
-        return response()->success('删除成功');
+        return response()->success(trans('admin::lang.success.destroy'));
     }
 }

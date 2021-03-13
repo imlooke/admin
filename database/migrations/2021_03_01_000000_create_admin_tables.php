@@ -42,7 +42,6 @@ class CreateAdminTables extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->text('route_path')->nullable();
-            $table->string('route_name')->nullable();
             $table->string('route_method')->nullable();
             $table->timestamps();
         });
@@ -57,7 +56,6 @@ class CreateAdminTables extends Migration
             $table->smallInteger('order')->default(50);
             $table->string('name', 64);
             $table->text('route_path');
-            $table->string('route_name')->nullable();
             $table->string('icon', 64)->nullable();
             $table->string('description')->nullable();
             $table->string('app_group', 64)->comment('应用分组');
