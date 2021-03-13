@@ -26,7 +26,6 @@ class PermissionsController extends Controller
 
     public function store(PermissionsRequest $request)
     {
-        // TODO:
         $data = $request->only([
             'name', 'slug', 'route_path', 'route_method',
         ]);
@@ -45,7 +44,9 @@ class PermissionsController extends Controller
 
     public function update(PermissionsRequest $request, $id)
     {
-        $data = $request->only(['name', 'slug']);
+        $data = $request->only([
+            'name', 'slug', 'route_path', 'route_method',
+        ]);
 
         $role = Permission::findOrFail($id);
         $role->update($data);

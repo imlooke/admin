@@ -37,8 +37,8 @@ class PermissionsRequest extends FormRequest
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            $rules['name'] = "required|string|unique:$table,name," . $this->role;
-            $rules['slug'] = "required|string|alpha_dash_regex|unique:$table,slug," . $this->role;
+            $rules['name'] = "required|string|unique:$table,name," . $this->permission;
+            $rules['slug'] = "required|string|alpha_dot_regex|unique:$table,slug," . $this->permission;
         }
 
         return $rules;

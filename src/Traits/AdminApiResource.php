@@ -31,7 +31,7 @@ trait AdminApiResource
             $model = $model->where($key, 'LIKE', "%$search%");
         }
 
-        $model->orderBy($orderBy, $sortOrder);
+        $model = $model->orderBy($orderBy, $sortOrder);
 
         if (request()->has('per_page')) {
             $perPage = (int) request()->input('per_page', 15);
