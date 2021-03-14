@@ -3,7 +3,7 @@
 namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Imlooke\Admin\Auth\Models\Menu;
+use Imlooke\Admin\Models\Menu;
 use Imlooke\Admin\Http\Requests\MenusRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 

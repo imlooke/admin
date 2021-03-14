@@ -4,7 +4,7 @@ namespace Imlooke\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-use Imlooke\Admin\Auth\Models\Permission;
+use Imlooke\Admin\Models\Permission;
 
 /**
  * PermissionsRequest

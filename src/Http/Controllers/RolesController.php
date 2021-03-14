@@ -3,7 +3,7 @@
 namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Imlooke\Admin\Auth\Models\Role;
+use Imlooke\Admin\Models\Role;
 use Imlooke\Admin\Http\Requests\RolesRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 
@@ -28,7 +28,13 @@ class RolesController extends Controller
     {
         $data = $request->only(['name', 'slug']);
 
-        Role::create($data);
+        $role = Role::create($data);
+        $role->permissions()->attach(
+            $request->input('permissions')
+        );
+        $role->menus()->attach(
+            $request->input('menus')
+        );
 
         return response()->success(trans('admin::lang.success.store'));
     }

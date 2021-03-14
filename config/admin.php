@@ -51,7 +51,7 @@ return [
         'providers' => [
             'admins' => [
                 'driver' => 'eloquent',
-                'model' => Imlooke\Admin\Auth\Models\Administrator::class,
+                'model' => Imlooke\Admin\Models\Administrator::class,
             ],
         ],
 
@@ -71,19 +71,19 @@ return [
 
         // Users table & model
         'users_table' => 'admin_users',
-        'users_model' => Imlooke\Admin\Auth\Models\Administrator::class,
+        'users_model' => Imlooke\Admin\Models\Administrator::class,
 
         // Roles table & model
         'roles_table' => 'admin_roles',
-        'roles_model' => Imlooke\Admin\Auth\Models\Role::class,
+        'roles_model' => Imlooke\Admin\Models\Role::class,
 
         // Permissions table & model
         'permissions_table' => 'admin_permissions',
-        'permissions_model' => Imlooke\Admin\Auth\Models\Permission::class,
+        'permissions_model' => Imlooke\Admin\Models\Permission::class,
 
         // Menus table & model
         'menus_table' => 'admin_menus',
-        'menus_model' => Imlooke\Admin\Auth\Models\Menu::class,
+        'menus_model' => Imlooke\Admin\Models\Menu::class,
 
         // Pivot table for table above.
         'user_role_table' => 'admin_user_role',

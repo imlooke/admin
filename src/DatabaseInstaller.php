@@ -2,8 +2,8 @@
 
 namespace Imlooke\Admin;
 
-use Imlooke\Admin\Auth\Models\Administrator;
-use Imlooke\Admin\Auth\Models\Role;
+use Imlooke\Admin\Models\Administrator;
+use Imlooke\Admin\Models\Role;
 
 /**
  * DatabaseInstaller

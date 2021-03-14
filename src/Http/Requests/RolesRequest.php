@@ -14,16 +14,22 @@ class RolesRequest extends FormRequest
 {
     public function rules()
     {
-        $table = config('admin.database.roles_table');
+        $rolesTable = config('admin.database.roles_table');
+        $permissionsTable = config('admin.database.permissions_table');
+        $menusTable = config('admin.database.menus_table');
 
         $rules = [
-            'name' => "required|string|unique:$table,name",
-            'slug' => "required|string|alpha_dot_regex|unique:$table,slug",
+            'name'          => "required|string|unique:$rolesTable,name",
+            'slug'          => "required|string|alpha_dot_regex|unique:$rolesTable,slug",
+            'permissions'   => "nullable|array",
+            'permissions.*' => "nullable|numeric|exists:$permissionsTable,id",
+            'menus'         => "nullable|array",
+            'menus.*'       => "nullable|numeric|exists:$menusTable,id",
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            $rules['name'] = "required|string|unique:$table,name," . $this->role;
-            $rules['slug'] = "required|string|alpha_dot_regex|unique:$table,slug," . $this->role;
+            $rules['name'] = "required|string|unique:$rolesTable,name," . $this->role;
+            $rules['slug'] = "required|string|alpha_dot_regex|unique:$rolesTable,slug," . $this->role;
         }
 
         return $rules;
@@ -32,7 +38,9 @@ class RolesRequest extends FormRequest
     public function attributes()
     {
         return [
-            'slug' => trans('admin::validation.attributes.slug'),
+            'slug'        => trans('admin::validation.attributes.slug'),
+            'permissions' => trans('admin::validation.attributes.permissions'),
+            'menus'       => trans('admin::validation.attributes.menus'),
         ];
     }
 }

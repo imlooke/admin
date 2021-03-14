@@ -19,5 +19,7 @@ return [
         'status'                    => '状态',
         'order'                     => '排序',
         'icon'                      => 'icon',
+        'permissions'               => '权限',
+        'menus'                     => '菜单',
     ],
 ];

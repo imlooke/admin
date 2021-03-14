@@ -1,6 +1,6 @@
 <?php
 
-namespace Imlooke\Admin\Auth\Models;
+namespace Imlooke\Admin\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

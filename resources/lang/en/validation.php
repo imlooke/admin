@@ -19,5 +19,7 @@ return [
         'status'                    => 'status',
         'order'                     => 'order',
         'icon'                      => 'icon',
+        'permissions'               => 'permissions',
+        'menus'                     => 'menus',
     ],
 ];

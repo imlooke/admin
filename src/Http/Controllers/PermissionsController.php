@@ -3,7 +3,7 @@
 namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Imlooke\Admin\Auth\Models\Permission;
+use Imlooke\Admin\Models\Permission;
 use Imlooke\Admin\Http\Requests\PermissionsRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 
