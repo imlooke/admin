@@ -14,5 +14,10 @@ return [
         'route_method'              => 'route_method',
         'new_password'              => 'new_password',
         'new_password_confirmation' => 'new_password_confirmation',
+        'parent_id'                 => 'parent_id',
+        'type'                      => 'type',
+        'status'                    => 'status',
+        'order'                     => 'order',
+        'icon'                      => 'icon',
     ],
 ];

@@ -58,7 +58,6 @@ class CreateAdminTables extends Migration
             $table->text('route_path');
             $table->string('icon', 64)->nullable();
             $table->string('description')->nullable();
-            $table->string('app_group', 64)->comment('应用分组');
             $table->timestamps();
         });
 

@@ -90,6 +90,7 @@ class Admin
                     'auth/users' => 'UsersController',
                     'auth/roles' => 'RolesController',
                     'auth/permissions' => 'PermissionsController',
+                    'auth/menus' => 'MenusController',
                 ]);
             });
         });

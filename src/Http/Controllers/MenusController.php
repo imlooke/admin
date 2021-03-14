@@ -3,60 +3,62 @@
 namespace Imlooke\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Imlooke\Admin\Auth\Models\Permission;
-use Imlooke\Admin\Http\Requests\PermissionsRequest;
+use Imlooke\Admin\Auth\Models\Menu;
+use Imlooke\Admin\Http\Requests\MenusRequest;
 use Imlooke\Admin\Traits\AdminApiResource;
 
 /**
- * PermissionsController
+ * MenusController
  *
  * @package imlooke/admin
  * @author lwx12525 <lwx12525@qq.com>
  */
-class PermissionsController extends Controller
+class MenusController extends Controller
 {
     use AdminApiResource;
 
     public function index()
     {
-        $response = $this->fillter(Permission::class);
+        $response = $this->fillter(Menu::class);
 
         return response()->json($response);
     }
 
-    public function store(PermissionsRequest $request)
+    public function store(MenusRequest $request)
     {
         $data = $request->only([
-            'name', 'slug', 'route_path', 'route_method',
+            'parent_id', 'type', 'status', 'order',
+            'name', 'route_path', 'icon', 'description',
         ]);
 
-        Permission::create($data);
+        Menu::create($data);
 
         return response()->success(trans('admin::lang.success.store'));
     }
 
     public function show($id)
     {
-        $response = Permission::findOrFail($id);
+        $response = Menu::findOrFail($id);
 
         return response()->json($response);
     }
 
-    public function update(PermissionsRequest $request, $id)
+    public function update(MenusRequest $request, $id)
     {
         $data = $request->only([
-            'name', 'slug', 'route_path', 'route_method',
+            'parent_id', 'type', 'status', 'order',
+            'name', 'route_path', 'icon', 'description',
         ]);
 
-        $permission = Permission::findOrFail($id);
-        $permission->update($data);
+        $menu = Menu::findOrFail($id);
+        $menu->update($data);
 
         return response()->success(trans('admin::lang.success.update'));
     }
 
     public function destroy($id)
     {
-        $this->multiDestroy(Permission::class);
+        $this->multiDestroy(Menu::class);
 
         return response()->success(trans('admin::lang.success.destroy'));
     }

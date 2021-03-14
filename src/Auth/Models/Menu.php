@@ -4,6 +4,7 @@ namespace Imlooke\Admin\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Imlooke\Admin\Traits\CategoryPath;
 
 /**
  * Menu
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Menu extends Model
 {
+    use CategoryPath;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,7 +32,16 @@ class Menu extends Model
         'route_path',
         'icon',
         'description',
-        'app_group',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'path_array',
+        'path_array_no_self',
     ];
 
     /**

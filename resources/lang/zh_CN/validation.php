@@ -14,5 +14,10 @@ return [
         'route_method'              => 'HTTP方法',
         'new_password'              => '新密码',
         'new_password_confirmation' => '确认密码',
+        'parent_id'                 => '父级ID',
+        'type'                      => '类型',
+        'status'                    => '状态',
+        'order'                     => '排序',
+        'icon'                      => 'icon',
     ],
 ];
