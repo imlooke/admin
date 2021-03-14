@@ -46,6 +46,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $routeMiddleware = [
         'admin.auth' => Http\Middleware\Authenticate::class,
+        'admin.permission' => Http\Middleware\Permission::class,
     ];
 
     /**
@@ -95,7 +96,6 @@ class AdminServiceProvider extends ServiceProvider
         config(Arr::dot(config('admin.auth', []), 'auth.'));
 
         config([
-            'sanctum.guard' => config('sanctum.guard') ?: config('admin.auth.guard'),
             'sanctum.expiration' => config('sanctum.expiration') ?: config('admin.auth.expiration'),
         ]);
     }

@@ -41,7 +41,7 @@ class RolesController extends Controller
 
     public function show($id)
     {
-        $response = Role::findOrFail($id);
+        $response = Role::with(['permissions:id', 'menus:id'])->findOrFail($id);
 
         return response()->json($response);
     }

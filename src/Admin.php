@@ -28,9 +28,19 @@ class Admin
      */
     public function guard()
     {
-        $guard = config('admin.auth.guard') ?: 'admin';
+        $guard = config('admin.auth.guard', 'admin');
 
         return Auth::guard($guard);
+    }
+
+    /**
+     * Attempt to get the user.
+     *
+     * @return void
+     */
+    public function user()
+    {
+        return $this->guard()->user();
     }
 
     /**
@@ -78,14 +88,14 @@ class Admin
         Route::group($attributes, function ($router) {
             $router->post('/login', 'AuthController@login');
 
-            $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
+            $router->middleware(['admin.auth'])->group(function ($router) {
                 $router->post('/logout', 'AuthController@logout');
                 $router->get('/user', 'UserController@user');
                 $router->put('/user', 'UserController@update');
                 $router->post('/reset', 'UserController@reset');
             });
 
-            $router->middleware(['admin.auth:sanctum'])->group(function ($router) {
+            $router->middleware(['admin.auth', 'admin.permission'])->group(function ($router) {
                 $router->apiResources([
                     'auth/users' => 'UsersController',
                     'auth/roles' => 'RolesController',

@@ -71,7 +71,20 @@ trait AuthenticatesUsers
      */
     protected function attemptLogin(Request $request)
     {
-        return $this->guard()->attempt($this->credentials($request));
+        $credentials = $this->credentials($request);
+
+        // get auth provider from current guard
+        $provider = $this->guard()->getProvider();
+
+        // find method in \Illuminate\Auth\EloquentUserProvider
+        $user = $provider->retrieveByCredentials($credentials);
+
+        if ($provider->validateCredentials($user, $credentials)) {
+            $this->guard()->setUser($user);
+            return true;
+        }
+
+        return false;
     }
 
     /**

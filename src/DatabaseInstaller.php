@@ -3,6 +3,7 @@
 namespace Imlooke\Admin;
 
 use Imlooke\Admin\Models\Administrator;
+use Imlooke\Admin\Models\Permission;
 use Imlooke\Admin\Models\Role;
 
 /**
@@ -36,6 +37,20 @@ class DatabaseInstaller
      */
     protected function createPermissions()
     {
+        Permission::createMany([
+            [
+                'name' => 'All permission',
+                'slug' => '*',
+                'route_path' => '',
+                'route_method' => '*',
+            ],
+            [
+                'name' => 'Administrator Manager',
+                'slug' => 'admin.manager',
+                'route_path' => '',
+                'route_method' => "/auth/users\r\n/auth/roles\r\n/auth/permissions\r\n/auth/menus",
+            ],
+        ]);
     }
 
     /**
