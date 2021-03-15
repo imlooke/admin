@@ -15,5 +15,8 @@ php artisan admin:assets-link
 
 ## TODO LIST
 
-- [ ] auth.permission
-- [ ] HasPermissions trait
+- [ ] permissions & menus data
+- [ ] menus
+- [ ] settings
+- [ ] clear cache
+- [ ] filesystem

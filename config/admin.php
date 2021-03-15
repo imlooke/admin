@@ -55,6 +55,10 @@ return [
             ],
         ],
 
+        'excepts' => [
+            //
+        ],
+
         'expiration' => null,
     ],
 

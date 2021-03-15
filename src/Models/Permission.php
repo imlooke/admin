@@ -92,6 +92,17 @@ class Permission extends Model
     }
 
     /**
+     * Get route_path attribute.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function getRoutePathAttribute($value)
+    {
+        return str_replace("\r\n", "\n", $value);
+    }
+
+    /**
      * Set route_method attribute.
      *
      * @param  array $value
@@ -100,7 +111,7 @@ class Permission extends Model
     public function setRouteMethodAttribute($value)
     {
         if (is_array($value)) {
-            $this->attributes['route_method'] = implode(',', $value);
+            $this->attributes['route_method'] = strtoupper(implode(',', $value));
         }
     }
 
@@ -110,8 +121,12 @@ class Permission extends Model
      * @param  string $value
      * @return array
      */
-    public function getRouteMethodAttribute(string $value)
+    public function getRouteMethodAttribute($value)
     {
+        if (empty($value)) {
+            return [];
+        }
+
         return explode(',', $value);
     }
 }

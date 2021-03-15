@@ -15,6 +15,9 @@ return [
     ],
 
     'permissions' => [
+        'no_permissions'       => 'User does not have the right permissions: ',
+        'no_roles'             => 'User does not have the right roles: ',
+        'access_denied'        => 'User does not have the right to access current resources.',
         'invalid_route_method' => 'Invalid route method.',
     ],
 ];

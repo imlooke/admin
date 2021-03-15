@@ -15,6 +15,9 @@ return [
     ],
 
     'permissions' => [
+        'no_permissions'       => '用户没有正确的权限：',
+        'no_roles'             => '用户没有正确的角色：',
+        'access_denied'        => '用户没有权限访问当前资源。',
         'invalid_route_method' => '无效的HTTP方法。',
     ],
 ];

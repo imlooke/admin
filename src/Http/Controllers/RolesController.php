@@ -52,6 +52,12 @@ class RolesController extends Controller
 
         $role = Role::findOrFail($id);
         $role->update($data);
+        $role->permissions()->sync(
+            $request->input('permissions')
+        );
+        $role->menus()->sync(
+            $request->input('menus')
+        );
 
         return response()->success(trans('admin::lang.success.update'));
     }

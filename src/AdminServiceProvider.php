@@ -47,6 +47,7 @@ class AdminServiceProvider extends ServiceProvider
     protected $routeMiddleware = [
         'admin.auth' => Http\Middleware\Authenticate::class,
         'admin.permission' => Http\Middleware\Permission::class,
+        'admin.role' => Http\Middleware\Role::class,
     ];
 
     /**
