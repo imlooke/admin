@@ -19,8 +19,15 @@ class MenusController extends Controller
 
     public function index()
     {
-        $response = $this->fillter(Menu::class);
+        $model = new Menu;
 
+        if ($hiddenId = request()->input('hidden_id', null)) {
+            $model->withQuery(function ($query) use ($hiddenId) {
+                return $query->where('id', '<>', $hiddenId);
+            });
+        }
+
+        $response = $model->getTree();
         return response()->json($response);
     }
 
