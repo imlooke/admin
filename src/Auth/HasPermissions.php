@@ -117,6 +117,7 @@ trait HasPermissions
 
             foreach ($paths as $path) {
                 $path = trim(trim($path, '/'));
+                $path = 'api/admin/' . $path;
                 if (!$request->is($path)) {
                     continue;
                 }

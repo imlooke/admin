@@ -3,6 +3,7 @@
 namespace Imlooke\Admin;
 
 use Imlooke\Admin\Models\Administrator;
+use Imlooke\Admin\Models\Menu;
 use Imlooke\Admin\Models\Permission;
 use Imlooke\Admin\Models\Role;
 
@@ -37,20 +38,43 @@ class DatabaseInstaller
      */
     protected function createPermissions()
     {
-        Permission::createMany([
+        Permission::insert([
             [
-                'name' => 'All permission',
-                'slug' => '*',
-                'route_path' => '',
-                'route_method' => '*',
+                'name'         => 'Dashboard',
+                'slug'         => 'admin.dashboard',
+                'route_path'   => '/dashboard',
+                'route_method' => 'GET',
             ],
             [
-                'name' => 'Administrator Manager',
-                'slug' => 'admin.manager',
-                'route_path' => '',
-                'route_method' => "/auth/users\r\n/auth/roles\r\n/auth/permissions\r\n/auth/menus",
+                'name'         => 'Admin Users',
+                'slug'         => 'admin.users',
+                'route_path'   => '/auth/users/*',
+                'route_method' => '',
+            ],
+            [
+                'name'         => 'Admin Roles',
+                'slug'         => 'admin.roles',
+                'route_path'   => '/auth/roles/*',
+                'route_method' => '',
+            ],
+            [
+                'name'         => 'Admin Permissions',
+                'slug'         => 'admin.permissions',
+                'route_path'   => '/auth/permissions/*',
+                'route_method' => '',
+            ],
+            [
+                'name'         => 'Admin Menus',
+                'slug'         => 'admin.menus',
+                'route_path'   => '/auth/menus/*',
+                'route_method' => '',
             ],
         ]);
+
+        // add permissions to administrator role
+        Role::first()->permissions()->attach(
+            Permission::all()->pluck('id')
+        );
     }
 
     /**
@@ -60,6 +84,50 @@ class DatabaseInstaller
      */
     protected function createMenus()
     {
+        Menu::insert([
+            [
+                'parent_id'  => 0,
+                'order'      => 1,
+                'name'       => 'Dashboard',
+                'route_path' => '/dashboard',
+                'icon'       => '',
+            ],
+            [
+                'parent_id'  => 0,
+                'order'      => 2,
+                'name'       => 'Admin',
+                'route_path' => '',
+                'icon'       => '',
+            ],
+            [
+                'parent_id'  => 2,
+                'order'      => 1,
+                'name'       => 'Users',
+                'route_path' => '/users',
+                'icon'       => '',
+            ],
+            [
+                'parent_id'  => 2,
+                'order'      => 2,
+                'name'       => 'Roles',
+                'route_path' => '/roles',
+                'icon'       => '',
+            ],
+            [
+                'parent_id'  => 2,
+                'order'      => 3,
+                'name'       => 'Permissions',
+                'route_path' => '/permissions',
+                'icon'       => '',
+            ],
+            [
+                'parent_id'  => 2,
+                'order'      => 4,
+                'name'       => 'Menus',
+                'route_path' => '/menus',
+                'icon'       => '',
+            ],
+        ]);
     }
 
     /**
@@ -74,7 +142,7 @@ class DatabaseInstaller
         Administrator::create([
             'username' => $username ?: 'admin',
             'password' => $password ? bcrypt($password) : bcrypt('123456'),
-            'name' => '超级管理员',
+            'name'     => '超级管理员',
         ]);
     }
 
