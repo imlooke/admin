@@ -166,7 +166,12 @@ class AdminServiceProvider extends ServiceProvider
     protected function registerMacros()
     {
         Response::macro('success', function ($message = '', $statusCode = 200) {
-            if (!$message) $message = 'Success!';
+            if (!$message) $message = 'Success.';
+            return Response::json(compact('message'), $statusCode);
+        });
+
+        Response::macro('error', function ($message = '', $statusCode = 422) {
+            if (!$message) $message = 'Error.';
             return Response::json(compact('message'), $statusCode);
         });
     }

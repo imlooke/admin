@@ -20,4 +20,9 @@ return [
         'access_denied'        => 'User does not have the right to access current resources.',
         'invalid_route_method' => 'Invalid route method.',
     ],
+
+    'menus' => [
+        'cannot_delete' => 'Current menu has sub menus, cannot delete.',
+        'update_order'  => 'Update order complete.',
+    ],
 ];

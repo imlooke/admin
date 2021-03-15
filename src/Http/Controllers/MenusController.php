@@ -63,8 +63,23 @@ class MenusController extends Controller
 
     public function destroy($id)
     {
-        $this->multiDestroy(Menu::class);
+        if (Menu::where('parent_id', $id)->exists()) {
+            return response()->error(trans('admin::lang.menus.cannot_delete'));
+        }
+
+        Menu::destroy($id);
 
         return response()->success(trans('admin::lang.success.destroy'));
+    }
+
+    public function order()
+    {
+        $orders = request()->input('orders', []);
+
+        foreach ($orders as $key => $value) {
+            Menu::where('id', $key)->update(['order' => $value]);
+        }
+
+        return response()->success(trans('admin::lang.menus.update_order'));
     }
 }

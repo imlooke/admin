@@ -20,4 +20,9 @@ return [
         'access_denied'        => '用户没有权限访问当前资源。',
         'invalid_route_method' => '无效的HTTP方法。',
     ],
+
+    'menus' => [
+        'cannot_delete' => '当前菜单下存在子菜单，不能删除。',
+        'update_order'  => '排序更新成功。',
+    ],
 ];
