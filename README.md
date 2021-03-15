@@ -15,8 +15,8 @@ php artisan admin:assets-link
 
 ## TODO LIST
 
-- [ ] permissions & menus data
 - [ ] menus
 - [ ] settings
 - [ ] clear cache
 - [ ] filesystem
+- [ ] user status

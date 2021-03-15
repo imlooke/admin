@@ -5,6 +5,7 @@ namespace Imlooke\Admin\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Imlooke\Admin\Traits\CategoryPath;
+use Imlooke\Admin\Traits\Tree;
 
 /**
  * Menu
@@ -14,7 +15,8 @@ use Imlooke\Admin\Traits\CategoryPath;
  */
 class Menu extends Model
 {
-    use CategoryPath;
+    use CategoryPath,
+        Tree;
 
     /**
      * The attributes that are mass assignable.
@@ -25,8 +27,6 @@ class Menu extends Model
         'parent_id',
         'path',
         'type',
-        'is_protected',
-        'status',
         'order',
         'name',
         'route_path',

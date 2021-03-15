@@ -16,6 +16,8 @@ class UserResource extends JsonResource
     {
         $data = parent::toArray($request);
 
+        $data['menus'] = $this->getMenus();
+
         return $data;
     }
 }

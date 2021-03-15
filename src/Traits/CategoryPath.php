@@ -13,18 +13,18 @@ use Illuminate\Support\Arr;
 trait CategoryPath
 {
     /**
-     * The parent_id name.
+     * The parent column name.
      *
      * @var string
      */
-    protected $parentIdName = 'parent_id';
+    protected $parentColumn = 'parent_id';
 
     /**
-     * The path name.
+     * The path column name.
      *
      * @var string
      */
-    protected $pathName = 'path';
+    protected $pathColumn = 'path';
 
     /**
      * The path_array attribute.
@@ -57,12 +57,12 @@ trait CategoryPath
     public function createPath()
     {
         $id = $this->getKey();
-        $parentId = $this->{$this->parentIdName};
+        $parent = $this->{$this->parentColumn};
         $newPath = '0-' . $id;
 
-        if ($parentId !== 0) {
-            $parentPath = $this->where($this->getKeyName(), $parentId)
-                ->value($this->pathName);
+        if ($parent !== 0) {
+            $parentPath = $this->where($this->getKeyName(), $parent)
+                ->value($this->pathColumn);
             $newPath = "$parentPath-$id";
         }
 
@@ -82,13 +82,13 @@ trait CategoryPath
         // must update path before data updated, otherwise
         // can not find the former path value.
         $id = $this->getKey();
-        $parentId = $this->{$this->parentIdName};
-        $oldPath = $this->{$this->pathName};
+        $parent = $this->{$this->parentColumn};
+        $oldPath = $this->{$this->pathColumn};
         $newPath = '0-' . $id;
 
-        if ($parentId !== 0) {
-            $parentPath = $this->where($this->getKeyName(), $parentId)
-                ->value($this->pathName);
+        if ($parent !== 0) {
+            $parentPath = $this->where($this->getKeyName(), $parent)
+                ->value($this->pathColumn);
             $newPath = "$parentPath-$id";
         }
 
@@ -97,15 +97,15 @@ trait CategoryPath
         // if current path was changed, update
         // this category children path
         if ($newPath != $oldPath) {
-            $children = $this->select($this->getKeyName(), $this->pathName)
-                ->where($this->pathName, 'LIKE', $oldPath . "-%")
+            $children = $this->select($this->getKeyName(), $this->pathColumn)
+                ->where($this->pathColumn, 'LIKE', $oldPath . "-%")
                 ->get();
 
             foreach ($children as $child) {
-                $childPath = str_replace("$oldPath-", "$newPath-", $child[$this->pathName]);
+                $childPath = str_replace("$oldPath-", "$newPath-", $child[$this->pathColumn]);
                 $this->where($this->getKeyName(), $child[$this->getKeyName()])
                     ->update([
-                        $this->pathName => $childPath
+                        $this->pathColumn => $childPath
                     ]);
             }
         }
@@ -149,12 +149,12 @@ trait CategoryPath
     protected function getPathArray()
     {
         if (is_null($this->pathArray)) {
-            $parentId = $this->{$this->parentIdName};
-            $path = $this->{$this->pathName};
+            $parent = $this->{$this->parentColumn};
+            $path = $this->{$this->pathColumn};
 
             $this->pathArray = [0];
 
-            if ($parentId !== 0) {
+            if ($parent !== 0) {
                 $result = explode('-', $path);
                 Arr::pull($result, 0);
 
@@ -177,6 +177,6 @@ trait CategoryPath
      */
     protected function savePath($value)
     {
-        $this->{$this->pathName} = $value;
+        $this->{$this->pathColumn} = $value;
     }
 }

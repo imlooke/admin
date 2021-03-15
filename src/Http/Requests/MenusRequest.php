@@ -17,7 +17,6 @@ class MenusRequest extends FormRequest
         return [
             'parent_id'   => 'required|numeric',
             'type'        => 'required|numeric|in:1,2',
-            'status'      => 'required|boolean',
             'order'       => 'required|numeric|between:0,99999',
             'name'        => 'required|string|max:64',
             'route_path'  => 'required|string|route_path_regex',
@@ -31,7 +30,6 @@ class MenusRequest extends FormRequest
         return [
             'parent_id'   => trans('admin::validation.attributes.parent_id'),
             'type'        => trans('admin::validation.attributes.type'),
-            'status'      => trans('admin::validation.attributes.status'),
             'order'       => trans('admin::validation.attributes.order'),
             'route_path'  => trans('admin::validation.attributes.route_path'),
             'icon'        => trans('admin::validation.attributes.icon'),

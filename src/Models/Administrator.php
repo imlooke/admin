@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
+use Imlooke\Admin\Auth\HasMenus;
 use Imlooke\Admin\Auth\HasPermissions;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -21,7 +22,8 @@ class Administrator extends Authenticatable
     use HasApiTokens,
         HasFactory,
         Notifiable,
-        HasPermissions;
+        HasPermissions,
+        HasMenus;
 
     /**
      * The attributes that are mass assignable.

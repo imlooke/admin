@@ -18,7 +18,9 @@ class UserController extends Controller
 {
     public function user(Request $request)
     {
-        return new UserResource($request->user());
+        return response()->json(
+            new UserResource($request->user())
+        );
     }
 
     public function update(UserRequest $request)
@@ -29,7 +31,9 @@ class UserController extends Controller
 
         $request->user()->update($data);
 
-        return new UserResource($request->user());
+        return response()->json(
+            new UserResource($request->user())
+        );
     }
 
     public function reset(ResetRequest $request)

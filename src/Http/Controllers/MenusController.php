@@ -27,8 +27,7 @@ class MenusController extends Controller
     public function store(MenusRequest $request)
     {
         $data = $request->only([
-            'parent_id', 'type', 'status', 'order',
-            'name', 'route_path', 'icon', 'description',
+            'parent_id', 'type', 'order', 'name', 'route_path', 'icon', 'description',
         ]);
 
         Menu::create($data);
@@ -46,8 +45,7 @@ class MenusController extends Controller
     public function update(MenusRequest $request, $id)
     {
         $data = $request->only([
-            'parent_id', 'type', 'status', 'order',
-            'name', 'route_path', 'icon', 'description',
+            'parent_id', 'type', 'order', 'name', 'route_path', 'icon', 'description',
         ]);
 
         $menu = Menu::findOrFail($id);

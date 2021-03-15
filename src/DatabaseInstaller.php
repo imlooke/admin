@@ -84,7 +84,7 @@ class DatabaseInstaller
      */
     protected function createMenus()
     {
-        Menu::insert([
+        $menus = [
             [
                 'parent_id'  => 0,
                 'order'      => 1,
@@ -127,7 +127,11 @@ class DatabaseInstaller
                 'route_path' => '/menus',
                 'icon'       => '',
             ],
-        ]);
+        ];
+
+        foreach ($menus as $menu) {
+            Menu::create($menu);
+        }
     }
 
     /**

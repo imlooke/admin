@@ -51,8 +51,6 @@ class CreateAdminTables extends Migration
             $table->unsignedBigInteger('parent_id')->default(0);
             $table->string('path')->default('0');
             $table->tinyInteger('type')->default(1)->comment('菜单类型 1:本站链接,2:第三方链接');
-            $table->tinyInteger('is_protected')->default(0)->comment('保护状态 1:受保护不可删除,0:可删除');
-            $table->tinyInteger('status')->default(0)->comment('显示状态 1:显示,0:不显示');
             $table->smallInteger('order')->default(50);
             $table->string('name', 64);
             $table->text('route_path');
