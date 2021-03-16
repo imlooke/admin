@@ -89,12 +89,14 @@ return [
         'menus_table' => 'admin_menus',
         'menus_model' => Imlooke\Admin\Models\Menu::class,
 
-        // Pivot table for table above.
+        // Pivot table for table above
         'user_role_table' => 'admin_user_role',
         'user_permission_table' => 'admin_user_permission',
         'role_permission_table' => 'admin_role_permission',
         'role_menu_table' => 'admin_role_menu',
 
+        // settings table
+        'settings_table' => 'admin_settings'
     ],
 
 ];

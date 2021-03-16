@@ -21,5 +21,8 @@ return [
         'icon'                      => 'icon',
         'permissions'               => '权限',
         'menus'                     => '菜单',
+        'key'                       => 'key',
+        'details'                   => '详情',
+        'group'                     => '分组',
     ],
 ];

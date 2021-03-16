@@ -4,7 +4,9 @@ namespace Imlooke\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Imlooke\Admin\Models\Setting;
 
 /**
  * Admin
@@ -51,6 +53,28 @@ class Admin
     public function getMenus()
     {
         return $this->user()->getMenus();
+    }
+
+    /**
+     * Get setting from database.
+     *
+     * @param  string $key
+     * @param  mixed $default
+     * @return mixed
+     */
+    public function setting($key, $default = null)
+    {
+        $key = "settings::$key";
+
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        foreach (Setting::all() as $setting) {
+            Cache::forever("settings::{$setting->key}", $setting->value);
+        }
+
+        return Cache::has($key) ? Cache::get($key) : $default;
     }
 
     /**
@@ -109,6 +133,10 @@ class Admin
                 $router->get('/auth/actions/clear_cache', 'ActionsController@clearCache');
                 $router->post('/auth/users/toggle', 'UsersController@toggle');
                 $router->post('/auth/menus/order', 'MenusController@order');
+
+                $router->get('/auth/settings/{id}/move_up', 'SettingsController@moveUp');
+                $router->get('/auth/settings/{id}/move_down', 'SettingsController@moveDown');
+                $router->apiResource('auth/settings', 'SettingsController')->except(['show']);
 
                 $router->apiResources([
                     'auth/users' => 'UsersController',

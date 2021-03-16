@@ -27,4 +27,11 @@ return [
         'cannot_delete' => '当前菜单下存在子菜单，不能删除。',
         'update_order'  => '排序更新成功。',
     ],
+
+    'settings' => [
+        'already_at_top'       => '已经在顶部了。',
+        'already_at_bottom'    => '已经在底部了。',
+        'moved_order_up'       => '已将 :name 设置抬升。',
+        'moved_order_down'     => '已将 :name 设置下沉。',
+    ],
 ];

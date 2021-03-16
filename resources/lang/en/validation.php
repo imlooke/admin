@@ -21,5 +21,8 @@ return [
         'icon'                      => 'icon',
         'permissions'               => 'permissions',
         'menus'                     => 'menus',
+        'key'                       => 'key',
+        'details'                   => 'details',
+        'group'                     => 'group',
     ],
 ];

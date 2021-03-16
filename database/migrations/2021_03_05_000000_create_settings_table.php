@@ -13,11 +13,11 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create(config('admin.database.settings_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('key')->unique();
-            $table->text('value');
+            $table->text('value')->nullable();
             $table->text('details')->nullable()->default(null);
             $table->string('type');
             $table->smallInteger('order')->default(50);
@@ -32,6 +32,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists(config('admin.database.settings_table'));
     }
 }
