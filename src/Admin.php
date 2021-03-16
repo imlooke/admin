@@ -96,6 +96,7 @@ class Admin
             });
 
             $router->middleware(['admin.auth', 'admin.permission'])->group(function ($router) {
+                $router->post('/auth/users/toggle', 'UsersController@toggle');
                 $router->post('/auth/menus/order', 'MenusController@order');
 
                 $router->apiResources([

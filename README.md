@@ -15,7 +15,6 @@ php artisan admin:assets-link
 
 ## TODO LIST
 
-- [ ] user status
 - [ ] settings
 - [ ] clear cache
 - [ ] filesystem

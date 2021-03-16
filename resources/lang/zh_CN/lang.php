@@ -6,6 +6,7 @@ return [
         'password'        => '密码错误。',
         'throttle'        => '您尝试的登录次数过多，请 :seconds 秒后再试。',
         'unauthenticated' => '用户未经认证。',
+        'disabled'        => '当前用户已被禁用。',
     ],
 
     'success' => [

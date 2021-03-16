@@ -42,7 +42,7 @@ trait AdminApiResource
     }
 
     /**
-     * add mutil destroy method to controller.
+     * Add mutil destroy method to controller.
      *
      * @param  string $model
      * @return integer
@@ -63,5 +63,28 @@ trait AdminApiResource
         }
 
         return $model::destroy($ids);
+    }
+
+    /**
+     * Add toggle data method to controller.
+     *
+     * @param  string $model
+     * @return void
+     */
+    protected function toggleData($model)
+    {
+        $data = request()->input('data', []);
+
+        if (request()->has(['id', 'key', 'value'])) {
+            $data[] = request()->only(['id', 'key', 'value']);
+        }
+
+        foreach ($data as $value) {
+            $model::findOrFail($value['id'])->update([
+                $value['key'] => $value['value']
+            ]);
+        }
+
+        return true;
     }
 }

@@ -31,7 +31,7 @@ class Administrator extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'avatar', 'email', 'phone', 'password',
+        'username', 'name', 'avatar', 'email', 'phone', 'password', 'status',
     ];
 
     /**
@@ -129,5 +129,15 @@ class Administrator extends Authenticatable
             'user_id',
             'permission_id'
         );
+    }
+
+    /**
+     * A admin is disabled.
+     *
+     * @return boolean
+     */
+    public function isDisabled()
+    {
+        return !boolval($this->status);
     }
 }

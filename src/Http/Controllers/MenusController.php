@@ -2,6 +2,7 @@
 
 namespace Imlooke\Admin\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Imlooke\Admin\Models\Menu;
 use Imlooke\Admin\Http\Requests\MenusRequest;
@@ -17,11 +18,11 @@ class MenusController extends Controller
 {
     use AdminApiResource;
 
-    public function index()
+    public function index(Request $request)
     {
         $model = new Menu;
 
-        if ($hiddenId = request()->input('hidden_id', null)) {
+        if ($hiddenId = $request->input('hidden_id', null)) {
             $model->withQuery(function ($query) use ($hiddenId) {
                 return $query->where('id', '<>', $hiddenId);
             });
@@ -74,11 +75,7 @@ class MenusController extends Controller
 
     public function order()
     {
-        $orders = request()->input('orders', []);
-
-        foreach ($orders as $key => $value) {
-            Menu::where('id', $key)->update(['order' => $value]);
-        }
+        $this->toggleData(Menu::class);
 
         return response()->success(trans('admin::lang.menus.update_order'));
     }

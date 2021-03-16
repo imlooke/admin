@@ -47,6 +47,10 @@ class Authenticate implements AuthenticatesRequests
         $guard = config('admin.auth.guard', 'admin');
 
         if ($this->auth->guard($guard)->check()) {
+            if ($this->auth->guard($guard)->user()->isDisabled()) {
+                throw new AuthenticationException(trans('admin::lang.auth.disabled'), [$guard]);
+            }
+
             $this->auth->shouldUse($guard);
             return $next($request);
         }

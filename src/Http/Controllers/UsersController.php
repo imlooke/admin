@@ -74,4 +74,11 @@ class UsersController extends Controller
 
         return response()->success(trans('admin::lang.success.destroy'));
     }
+
+    public function toggle()
+    {
+        $this->toggleData(Administrator::class);
+
+        return response()->noContent();
+    }
 }
