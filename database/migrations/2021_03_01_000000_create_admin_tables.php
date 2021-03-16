@@ -22,10 +22,6 @@ class CreateAdminTables extends Migration
             $table->string('phone', 32)->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('last_login_ip', 32)->nullable();
-            $table->timestamp('last_login_at')->nullable();
-            $table->timestamp('recently_login_at')->nullable();
-            $table->bigInteger('login_times')->default(0);
             $table->tinyInteger('status')->default(1)->comment('用户状态 1:正常,0:禁用');
             $table->timestamps();
         });
