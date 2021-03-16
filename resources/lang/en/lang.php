@@ -10,9 +10,10 @@ return [
     ],
 
     'success' => [
-        'store'   => 'Create completed!',
-        'update'  => 'Update completed!',
-        'destroy' => 'Destroy completed!',
+        'store'       => 'Create completed!',
+        'update'      => 'Update completed!',
+        'destroy'     => 'Destroy completed!',
+        'clear_cache' => 'Clear cache completed!',
     ],
 
     'permissions' => [

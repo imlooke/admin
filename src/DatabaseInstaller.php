@@ -69,6 +69,12 @@ class DatabaseInstaller
                 'route_path'   => '/auth/menus/*',
                 'route_method' => '',
             ],
+            [
+                'name'         => 'Admin Actions',
+                'slug'         => 'admin.actions',
+                'route_path'   => '/auth/actions/*',
+                'route_method' => '',
+            ],
         ]);
 
         // add permissions to administrator role

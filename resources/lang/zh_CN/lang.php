@@ -10,9 +10,10 @@ return [
     ],
 
     'success' => [
-        'store'   => '创建成功！',
-        'update'  => '更新成功！',
-        'destroy' => '删除成功！',
+        'store'       => '创建成功！',
+        'update'      => '更新成功！',
+        'destroy'     => '删除成功！',
+        'clear_cache' => '缓存清除成功！',
     ],
 
     'permissions' => [

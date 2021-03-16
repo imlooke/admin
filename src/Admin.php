@@ -36,11 +36,21 @@ class Admin
     /**
      * Attempt to get the user.
      *
-     * @return void
+     * @return object
      */
     public function user()
     {
         return $this->guard()->user();
+    }
+
+    /**
+     * Get admin menus.
+     *
+     * @return array
+     */
+    public function getMenus()
+    {
+        return $this->user()->getMenus();
     }
 
     /**
@@ -96,6 +106,7 @@ class Admin
             });
 
             $router->middleware(['admin.auth', 'admin.permission'])->group(function ($router) {
+                $router->get('/auth/actions/clear_cache', 'ActionsController@clearCache');
                 $router->post('/auth/users/toggle', 'UsersController@toggle');
                 $router->post('/auth/menus/order', 'MenusController@order');
 

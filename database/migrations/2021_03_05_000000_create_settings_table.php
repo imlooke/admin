@@ -21,6 +21,7 @@ class CreateSettingsTable extends Migration
             $table->text('details')->nullable()->default(null);
             $table->string('type');
             $table->smallInteger('order')->default(50);
+            $table->string('group')->nullable();
         });
     }
 
