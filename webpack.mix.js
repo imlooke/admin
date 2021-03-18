@@ -1,4 +1,12 @@
 const mix = require("laravel-mix");
+const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin");
+
+mix.webpackConfig({
+  plugins: [new AntdDayjsWebpackPlugin()],
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
+});
 
 mix.browserSync({
   proxy: "localhost:8080/admin",

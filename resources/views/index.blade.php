@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/imlooke/admin/css/app.css') }}">
 </head>
 <body>
-    <h1>hello</h1>
     <div id="app"></div>
     <script src="{{ asset('vendor/imlooke/admin/js/app.js') }}"></script>
 </body>
