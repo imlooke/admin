@@ -1,13 +1,16 @@
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Login from "../pages/Login.jsx";
-import Home from "../pages/Home";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "../pages/login";
+import Home from "../pages/home";
 
 const Routes = () => (
-  <Router>
-    <Link to="/admin/home">To Home</Link>
-    <Link to="/admin/login">To Login</Link>
-    <Route path="/admin/login" component={Login}></Route>
-    <Route path="/admin/home" component={Home}></Route>
+  <Router basename={window.ADMIN_CONFIGS.prefix}>
+    <Link to="/">To Home</Link>
+    <Link to="/login">To Login</Link>
+    <Switch>
+      <Route path="/login" component={Login} />
+      <PrivateRoute path="/" component={Home} />
+    </Switch>
   </Router>
 );
 

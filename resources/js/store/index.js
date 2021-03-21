@@ -1,7 +1,8 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
+import auth from "./auth";
 
-function test() {}
+const rootReducer = combineReducers({ auth });
 
-let store = createStore(test);
+const store = createStore(rootReducer);
 
 export default store;
