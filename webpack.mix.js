@@ -13,9 +13,7 @@ mix.browserSync({
   files: ["resources/less/**/*", "resources/js/**/*"],
 });
 
-mix
-  .less("resources/less/app.less", "public/css", {
-    lessOptions: { javascriptEnabled: true },
-  })
-  .js("resources/js/app.js", "public/js")
-  .react();
+mix.less("resources/less/app.less", "public/css", {
+  lessOptions: { javascriptEnabled: true },
+});
+mix.js("resources/js/app.js", "public/js").react();

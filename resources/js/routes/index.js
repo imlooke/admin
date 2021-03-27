@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "../pages/login";
-import Home from "../pages/home";
+import routes from "./routes";
 
 const Routes = () => (
   <Router basename={window.ADMIN_CONFIGS.prefix}>
-    <Link to="/">To Home</Link>
-    <Link to="/login">To Login</Link>
     <Switch>
-      <Route path="/login" component={Login} />
-      <PrivateRoute path="/" component={Home} />
+      <Route path="/login" exact component={Login} />
+      {routes.map((route, i) => {
+        return <PrivateRoute key={i} {...route} />;
+      })}
     </Switch>
   </Router>
 );
