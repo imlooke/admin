@@ -1,4 +1,4 @@
-const keyName = "imlooke-admin::access_token";
+const keyName = "admin::access_token";
 
 const token = {
   set(token) {
