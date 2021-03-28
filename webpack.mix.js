@@ -1,19 +1,22 @@
 const mix = require("laravel-mix");
-const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin");
+const webpack = require("webpack");
 
 mix.webpackConfig({
-  plugins: [new AntdDayjsWebpackPlugin()],
-  resolve: {
-    extensions: [".js", ".jsx"],
-  },
+  plugins: [
+    // load `moment/locale/zh-cn.js`
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
+  ],
 });
 
 mix.browserSync({
   proxy: "localhost:8080/admin",
-  files: ["resources/less/**/*", "resources/js/**/*"],
+  files: ["resources/less/**/*", "resources/scss/**/*", "resources/js/**/*"],
 });
 
-mix.less("resources/less/app.less", "public/css", {
-  lessOptions: { javascriptEnabled: true },
+mix.less("resources/less/app.less", "dist/css", {
+  lessOptions: {
+    javascriptEnabled: true,
+  },
 });
-mix.js("resources/js/app.js", "public/js").react();
+
+mix.js("resources/js/app.js", "dist/js").vue();

@@ -18,7 +18,7 @@
     <![endif]-->
 
     {{-- <link rel="shortcut icon" type="image/icon" href="{{ asset() }}"> --}}
-    <link rel="stylesheet" href="{{ asset('vendor/imlooke/admin/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
     <script>
         window.ADMIN_CONFIGS = {
             prefix: "{{ config('admin.route.prefix') }}",
@@ -28,6 +28,6 @@
 </head>
 <body>
     <div id="app"></div>
-    <script src="{{ asset('vendor/imlooke/admin/js/app.js') }}"></script>
+    <script src="{{ asset('dist/js/app.js') }}"></script>
 </body>
 </html>

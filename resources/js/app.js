@@ -1,15 +1,9 @@
-import { Provider } from "react-redux";
-import React from "react";
-import ReactDOM from "react-dom";
-import Routes from "./routes";
-import store from "./store";
-import { authCheck } from "./store/auth/actions";
+import { createApp } from "vue";
+import Antd from "ant-design-vue";
+import App from "./App.vue";
 
-store.dispatch(authCheck());
+const app = createApp(App);
+app.config.productionTip = false;
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Routes />
-  </Provider>,
-  document.getElementById("app")
-);
+app.use(Antd);
+app.mount("#app");

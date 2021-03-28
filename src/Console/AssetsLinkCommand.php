@@ -60,6 +60,6 @@ class AssetsLinkCommand extends Command
      */
     protected function links()
     {
-        return [public_path('vendor/imlooke/admin') => __DIR__ . '/../../public'];
+        return [public_path('dist') => __DIR__ . '/../../dist'];
     }
 }
